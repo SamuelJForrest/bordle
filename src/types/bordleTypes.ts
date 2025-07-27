@@ -13,6 +13,8 @@ type BorldeCountryType = {
 type CountryComponentType = {
     name: string;
     flag: string;
+    isMainCountry?: boolean;
+    isHidden?: boolean;
 }
 
 export type {BordleCountryPickerType, BorldeCountryType, CountryComponentType};

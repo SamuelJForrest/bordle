@@ -1,0 +1,27 @@
+@use '../utils/variables' as var;
+@use '../utils/functions' as func;
+
+.country-card {
+    width: 100%;
+    text-align: center;
+
+    &-emoji {
+        font-size: func.pxToRem(100);
+        line-height: 0.95;
+
+        &--main {
+            font-size: func.pxToRem(350);
+            line-height: 0.8;
+        }
+    }
+
+    &-name {
+        font-weight: var.$font-semibold;
+        font-size: func.pxToRem(20);
+
+        &--main {
+            font-weight: var.$font-bold;
+            font-size: func.pxToRem(40);
+        }
+    }
+}

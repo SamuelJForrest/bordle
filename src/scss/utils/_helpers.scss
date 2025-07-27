@@ -7,13 +7,12 @@
 
 .green-tag {
     background: var.$green;
-    padding: func.pxToRem(8) func.pxToRem(12);
-    font-size: func.pxToRem(15);
+    padding: func.pxToRem(6) func.pxToRem(10);
+    font-size: func.pxToRem(12);
     border-radius: var.$border-radius;
 }
 
 .has-green-tag {
     display: flex;
-    align-items: center;
-    gap: func.pxToRem(6);
+    align-items: flex-start;
 }

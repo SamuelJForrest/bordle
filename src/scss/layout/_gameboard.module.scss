@@ -1,9 +1,21 @@
 @use '../utils/variables' as var;
+@use '../utils/functions' as func;
+
+$gameboard-gap: func.pxToRem(16);
 
 .gameboard {
 
     @media (min-width: var.$lg) {
         display: grid;
         grid-template-columns: repeat(2, 6fr);
+        gap: $gameboard-gap;
+    }
+
+    &-list {
+        @media (min-width: var.$lg) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: $gameboard-gap;
+        }
     }
 }
