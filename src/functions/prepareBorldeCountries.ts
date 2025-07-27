@@ -12,6 +12,8 @@ const useCreateBordleCountriesList = () => {
                 fields: ['name', 'flag', 'borders', 'cca3'],
             });
 
+            console.log(allCountries);
+
             if (allCountries == null) return;
 
             const bordleCountries: BorldeCountryType[] = allCountries

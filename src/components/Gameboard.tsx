@@ -2,6 +2,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 import useCreateBordleCountriesList from '../functions/prepareBorldeCountries';
 import Country from './Country';
 
+import styles from '../scss/layout/_gameboard.module.scss';
+
 const GameBoard: React.FC = () => {
     const bordle = useCreateBordleCountriesList();
 
@@ -10,13 +12,15 @@ const GameBoard: React.FC = () => {
             <Container>
                 <Row>
                     <Col>
-                        <div>
+                        <div className={styles["gameboard"]}>
                             <div>
-                                <Country name={bordle.randomCountry!.name} flag={bordle.randomCountry!.flag} />
+                                {bordle.randomCountry && (
+                                    <Country name={bordle.randomCountry!.name} flag={bordle.randomCountry!.flag} />
+                                )}
                             </div>
                             <div>
-                                {bordle.borderingCountries?.map(country => {
-                                    return <Country name={country!.name} flag={country!.flag} />;
+                                {bordle.borderingCountries && bordle.borderingCountries?.map(country => {
+                                    return <Country key={country!.cca3} name={country!.name} flag={country!.flag} />;
                                 })}
                             </div>
                         </div>

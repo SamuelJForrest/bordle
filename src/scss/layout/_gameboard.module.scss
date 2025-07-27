@@ -1,0 +1,9 @@
+@use '../utils/variables' as var;
+
+.gameboard {
+
+    @media (min-width: var.$lg) {
+        display: grid;
+        grid-template-columns: repeat(2, 6fr);
+    }
+}

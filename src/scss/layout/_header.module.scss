@@ -1,4 +1,5 @@
 @use '../utils/variables' as var;
+@use '../utils/helpers';
 
 .header {
     @media (min-width: var.$lg) {
@@ -6,6 +7,7 @@
     }
 
     &-title {
+        @extend .has-green-tag;
         font-size: var.$title-large;
         font-weight: var.$font-bold;
     }

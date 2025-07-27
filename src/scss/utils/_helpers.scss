@@ -1,5 +1,19 @@
 @use './variables' as var;
+@use './functions' as func;
 
 .green-text {
     color: var.$green;
+}
+
+.green-tag {
+    background: var.$green;
+    padding: func.pxToRem(8) func.pxToRem(12);
+    font-size: func.pxToRem(15);
+    border-radius: var.$border-radius;
+}
+
+.has-green-tag {
+    display: flex;
+    align-items: center;
+    gap: func.pxToRem(6);
 }
