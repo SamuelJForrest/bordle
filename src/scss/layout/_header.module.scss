@@ -1,8 +1,12 @@
 @use '../utils/variables' as var;
 
 .header {
-    
     @media (min-width: var.$lg) {
         padding: 32px 0;
+    }
+
+    &-title {
+        font-size: var.$title-large;
+        font-weight: var.$font-bold;
     }
 }

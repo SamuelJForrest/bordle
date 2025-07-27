@@ -1,18 +1,21 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from 'react-bootstrap';
 import styles from '../scss/layout/_header.module.scss';
+import Title from './Title';
 
-const Header = () => {
+const Header: React.FC = () => {
     return (
-        <header className={styles.header}>
+        <header className={styles['header']}>
             <Container>
                 <Row>
                     <Col>
-                        <h1 className={styles.headerTitle}>Bordle</h1>
+                        <h1 className={styles['header-title']}>
+                            <Title />
+                        </h1>
                     </Col>
                 </Row>
             </Container>
         </header>
-    )
-}
+    );
+};
 
 export default Header;

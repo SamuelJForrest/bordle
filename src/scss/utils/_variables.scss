@@ -1,3 +1,5 @@
+@use './functions' as func;
+
 // colour variables
 $black: #202020;
 $opaque-black: rgba($black, 0.75);
@@ -10,6 +12,8 @@ $font-regular: 400;
 $font-medium: 500;
 $font-semibold: 600;
 $font-bold: 700;
+
+$title-large: func.pxToRem(64);
 
 // responsivity variables
 $sm: 575px;
