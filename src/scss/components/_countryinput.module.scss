@@ -1,0 +1,26 @@
+@use './button';
+@use '../utils/variables' as var;
+@use '../utils/functions' as func;
+
+.country-input {
+    padding: func.pxToRem(8) func.pxToRem(12);
+    border-radius: var.$border-radius;
+    border: none;
+    font-size: func.pxToRem(16);
+    font-family: var.$font-family;
+
+    @media (min-width: var.$lg) {
+        flex: 0 0 60%;
+    }
+
+    &-container {
+        margin: func.pxToRem(32) 0;
+        display: flex;
+        justify-content: center;
+        gap: func.pxToRem(12);
+    }
+
+    &-button {
+        @extend .button;
+    }
+}

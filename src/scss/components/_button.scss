@@ -1,0 +1,20 @@
+@use '../utils/variables' as var;
+@use '../utils/functions' as func;
+
+.button {
+    cursor: pointer;
+    background: var.$green;
+    color: var.$white;
+    font-size: func.pxToRem(16);
+    font-family: var.$font-family;
+    font-weight: var.$font-semibold;
+    padding: func.pxToRem(8) func.pxToRem(12);
+    border-radius: var.$border-radius;
+    border: none;
+    transition: background var.$transition-fast;
+
+    &:hover,
+    &:focus {
+        background: var.$green-hover;
+    }
+}

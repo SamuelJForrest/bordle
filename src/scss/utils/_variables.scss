@@ -5,6 +5,7 @@ $black: #202020;
 $opaque-black: rgba($black, 0.75);
 $white: #EEEEEE;
 $green: #29A173;
+$green-hover: darken($green, 10%);
 
 // typography variables
 $font-family: "Poppins", sans-serif;
@@ -21,6 +22,9 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
+
+// transition variables
+$transition-fast: .3s;
 
 // other variables
 $border-radius: 8px;

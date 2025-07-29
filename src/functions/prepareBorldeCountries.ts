@@ -5,14 +5,13 @@ import type { BordleCountryPickerType, BorldeCountryType } from '../types/bordle
 const useCreateBordleCountriesList = () => {
     const [randomCountry, setRandomCountry] = useState<BorldeCountryType>();
     const [borderingCountries, setBorderingCountries] = useState<BorldeCountryType[]>();
+    const [fullCountryList, setFullCountryList] = useState<BorldeCountryType[]>();
 
     useEffect(() => {
         const prepareBordleCountries = async () => {
             const allCountries: BordleCountryPickerType = await getCountries({
                 fields: ['name', 'flag', 'borders', 'cca3'],
             });
-
-            console.log(allCountries);
 
             if (allCountries == null) return;
 
@@ -25,6 +24,8 @@ const useCreateBordleCountriesList = () => {
                     borders: country.borders!,
                     cca3: country.cca3,
                 }));
+
+            setFullCountryList(bordleCountries);
 
             const randomCountry =
                 bordleCountries[Math.floor(Math.random() * bordleCountries.length)];
@@ -39,7 +40,7 @@ const useCreateBordleCountriesList = () => {
         prepareBordleCountries();
     }, []);
 
-    return { randomCountry, borderingCountries };
+    return { randomCountry, borderingCountries, fullCountryList };
 };
 
 export default useCreateBordleCountriesList;

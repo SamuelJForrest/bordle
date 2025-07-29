@@ -9,13 +9,14 @@ $gameboard-gap: func.pxToRem(16);
         display: grid;
         grid-template-columns: repeat(2, 6fr);
         gap: $gameboard-gap;
+        align-items: flex-start;
     }
 
     &-list {
         @media (min-width: var.$lg) {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: $gameboard-gap;
+            gap: $gameboard-gap * 2 $gameboard-gap;
         }
     }
 }
