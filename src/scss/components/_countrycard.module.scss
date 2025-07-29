@@ -6,10 +6,12 @@
     text-align: center;
 
     &-emoji {
+        user-select: none;
         font-size: func.pxToRem(100);
         line-height: 0.95;
-
+        
         &--main {
+            user-select: none;
             font-size: func.pxToRem(500);
             line-height: 0.8;
         }

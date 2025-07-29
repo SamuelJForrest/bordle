@@ -2,22 +2,63 @@
 @use '../utils/variables' as var;
 @use '../utils/functions' as func;
 
+$input-padding: func.pxToRem(8) func.pxToRem(12);
+
 .country-input {
-    padding: func.pxToRem(8) func.pxToRem(12);
+    padding: $input-padding;
     border-radius: var.$border-radius;
     border: none;
-    font-size: func.pxToRem(16);
+    font-size: func.pxToRem(18);
     font-family: var.$font-family;
+    flex: 1;
 
-    @media (min-width: var.$lg) {
-        flex: 0 0 60%;
+    &:focus {
+        outline: none;
+    }
+
+    &--active {
+        @extend .country-input;
+        border-radius: var.$border-radius var.$border-radius 0 0;
     }
 
     &-container {
-        margin: func.pxToRem(32) 0;
+        margin: func.pxToRem(32) 0 func.pxToRem(8);
         display: flex;
         justify-content: center;
         gap: func.pxToRem(12);
+    }
+
+    &-autocomplete {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(100%);
+        background: var.$white;
+        list-style: none;
+        max-height: 200px;
+        overflow: auto;
+        border-radius: 0 0 var.$border-radius var.$border-radius;
+
+        &-container {
+            display: flex;
+            position: relative;
+            flex: 1;
+        }
+
+        &-option {
+            color: var.$black;
+            padding: $input-padding;
+            display: flex;
+            gap: 4px;
+            font-size: func.pxToRem(18);
+
+            &:hover,
+            &:focus {
+                background: var.$green;
+                color: var.$white;
+            }
+        }
     }
 
     &-button {

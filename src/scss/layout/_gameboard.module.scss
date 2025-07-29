@@ -19,4 +19,9 @@ $gameboard-gap: func.pxToRem(16);
             gap: $gameboard-gap * 2 $gameboard-gap;
         }
     }
+
+    &-wrap {
+        width: 80%;
+        margin: 0 auto;
+    }
 }

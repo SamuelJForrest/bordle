@@ -26,8 +26,13 @@ const GameBoard: React.FC = () => {
                                             flag={bordle.randomCountry!.flag}
                                             isMainCountry={true}
                                         />
-                                        <CountryInput countryList={bordle.fullCountryList} submitGuess={setGuessedCountries} />
-                                        <GuessedCountries />
+                                        <div className={styles['gameboard-wrap']}>
+                                            <CountryInput
+                                                countryList={bordle.fullCountryList}
+                                                submitGuess={setGuessedCountries}
+                                            />
+                                            <GuessedCountries />
+                                        </div>
                                     </>
                                 )}
                             </div>
