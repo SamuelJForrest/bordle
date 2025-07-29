@@ -54,7 +54,9 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
             font-size: func.pxToRem(18);
 
             &:hover,
-            &:focus {
+            &:focus,
+            &--active {
+                @extend .country-input-autocomplete-option;
                 background: var.$green;
                 color: var.$white;
             }
