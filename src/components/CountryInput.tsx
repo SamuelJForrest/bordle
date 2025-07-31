@@ -3,47 +3,14 @@ import styles from '../scss/components/_countryinput.module.scss';
 import type { BorldeCountryType } from '../types/bordleTypes';
 
 type CountryInputType = {
-    countryList: BorldeCountryType[] | undefined;
-    submitGuess: Dispatch<SetStateAction<BorldeCountryType[]> | undefined>;
+    countryList: BorldeCountryType[];
+    submitGuess: Dispatch<SetStateAction<BorldeCountryType[]>>;
 };
 
 const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) => {
     const [countrySearch, setCountrySearch] = useState<string>('');
     const [activeIndex, setActiveIndex] = useState<number>(-1);
     const optionRefs = useRef<(HTMLLIElement | null)[]>([]);
-
-    const makeGuess = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(countrySearch);
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (!countrySearch?.length) return;
-
-        const activeElement = optionRefs.current[activeIndex];
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (activeIndex >= filteredCountries?.length - 1) return;
-
-            setActiveIndex(prev => prev + 1);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-
-            if (activeIndex <= 0) return;
-
-            setActiveIndex(prev => prev - 1);
-        } else if (e.key === 'Escape')
-        {
-            setCountrySearch("");
-            setActiveIndex(-1);
-        }
-
-        activeElement?.scrollIntoView({
-            block: 'end',
-            behavior: 'auto'
-        });
-    };
 
     const filteredCountries = countryList
         ?.filter(country => {
@@ -82,6 +49,39 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
                 </li>
             );
         });
+
+    const makeGuess = (e: FormEvent) => {
+        e.preventDefault();
+        console.log(countrySearch);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (!countrySearch?.length) return;
+
+        const activeElement = optionRefs.current[activeIndex];
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            if (activeIndex >= filteredCountries?.length - 1) return;
+
+            setActiveIndex(prev => prev + 1);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+
+            if (activeIndex <= 0) return;
+
+            setActiveIndex(prev => prev - 1);
+        } else if (e.key === 'Escape')
+        {
+            setCountrySearch("");
+            setActiveIndex(-1);
+        }
+
+        activeElement?.scrollIntoView({
+            block: 'end',
+            behavior: 'auto'
+        });
+    };
 
     const inputClass = countrySearch.trim().length > 0 ? 'country-input--active' : 'country-input';
 

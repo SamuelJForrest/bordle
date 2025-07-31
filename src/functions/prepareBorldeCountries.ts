@@ -7,7 +7,7 @@ const useCreateBordleCountriesList = () => {
     const [borderingCountries, setBorderingCountries] = useState<BorldeCountryType[]>();
     const [fullCountryList, setFullCountryList] = useState<BorldeCountryType[]>();
 
-    useEffect(() => {
+    useEffect(() => {        
         const prepareBordleCountries = async () => {
             const allCountries: BordleCountryPickerType = await getCountries({
                 fields: ['name', 'flag', 'borders', 'cca3'],
