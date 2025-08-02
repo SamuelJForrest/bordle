@@ -39,6 +39,7 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
         max-height: 200px;
         overflow: auto;
         border-radius: 0 0 var.$border-radius var.$border-radius;
+        z-index: 10;
 
         &-container {
             display: flex;

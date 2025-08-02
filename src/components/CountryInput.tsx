@@ -32,6 +32,11 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
             return aLower.localeCompare(bLower);
         });
 
+    const resetGuess = () => {
+        setCountrySearch('');
+        setActiveIndex(-1);
+    };
+
     const makeGuess = (e: FormEvent) => {
         e.preventDefault();
         const currentRef = optionRefs.current[activeIndex - 1];
@@ -40,10 +45,8 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
 
         const currentCountry = filteredCountries[activeIndex];
 
-        submitGuess((prev) => [...prev, currentCountry]);
-        setCountrySearch("");
-        setActiveIndex(-1);
-        console.log(filteredCountries[activeIndex]);
+        submitGuess(prev => [...prev, currentCountry]);
+        resetGuess();
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,8 +66,7 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
 
             setActiveIndex(prev => prev - 1);
         } else if (e.key === 'Escape') {
-            setCountrySearch('');
-            setActiveIndex(-1);
+            resetGuess();
         }
 
         activeElement?.scrollIntoView({
@@ -87,6 +89,7 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
                     onChange={e => setCountrySearch(e.target.value)}
                     onKeyDown={e => handleKeyDown(e)}
                     autoComplete="off"
+                    value={countrySearch}
                 />
 
                 {countrySearch.length > 0 && (
@@ -110,9 +113,7 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
                             );
                         })}
                         {filteredCountries.length === 0 && (
-                            <li
-                                className={styles['country-input-autocomplete-option']}
-                            >
+                            <li className={styles['country-input-autocomplete-option']}>
                                 No countries available.
                             </li>
                         )}
