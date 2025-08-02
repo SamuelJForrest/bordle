@@ -21,7 +21,7 @@ const useCreateBordleCountriesList = () => {
                     name: country.name.common,
                     acceptedNames: [country.name.official],
                     flag: country.flag,
-                    borders: country.borders!,
+                    borders: country.borders,
                     cca3: country.cca3,
                 }));
 
@@ -32,7 +32,7 @@ const useCreateBordleCountriesList = () => {
             setRandomCountry(randomCountry);
 
             const countriesBorderingRandomCountry = bordleCountries.filter(country =>
-                country?.borders.includes(randomCountry!.cca3)
+                country.borders.includes(randomCountry.cca3)
             );
             setBorderingCountries(countriesBorderingRandomCountry);
         };

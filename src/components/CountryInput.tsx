@@ -20,39 +20,30 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
         })
         .sort((a, b) => {
             const s = countrySearch.toLowerCase();
-            const aLower = a?.name.toLowerCase();
-            const bLower = b?.name.toLowerCase();
+            const aLower = a.name.toLowerCase();
+            const bLower = b.name.toLowerCase();
 
-            const aStarts = aLower!.startsWith(s);
-            const bStarts = bLower!.startsWith(s);
+            const aStarts = aLower.startsWith(s);
+            const bStarts = bLower.startsWith(s);
 
             if (aStarts && !bStarts) return -1;
             if (!aStarts && bStarts) return 1;
 
-            return aLower!.localeCompare(bLower!);
-        })
-        .map((country, index) => {
-            const optionClass =
-                index === activeIndex
-                    ? 'country-input-autocomplete-option--active'
-                    : 'country-input-autocomplete-option';
-
-            return (
-                <li
-                    className={styles[optionClass]}
-                    key={index}
-                    ref={el => {
-                        optionRefs.current[index - 1] = el;
-                    }}
-                >
-                    {country?.flag} {country?.name}
-                </li>
-            );
+            return aLower.localeCompare(bLower);
         });
 
     const makeGuess = (e: FormEvent) => {
         e.preventDefault();
-        console.log(countrySearch);
+        const currentRef = optionRefs.current[activeIndex - 1];
+
+        if (!currentRef || !currentRef.textContent) return;
+
+        const currentCountry = filteredCountries[activeIndex];
+
+        submitGuess((prev) => [...prev, currentCountry]);
+        setCountrySearch("");
+        setActiveIndex(-1);
+        console.log(filteredCountries[activeIndex]);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -71,15 +62,14 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
             if (activeIndex <= 0) return;
 
             setActiveIndex(prev => prev - 1);
-        } else if (e.key === 'Escape')
-        {
-            setCountrySearch("");
+        } else if (e.key === 'Escape') {
+            setCountrySearch('');
             setActiveIndex(-1);
         }
 
         activeElement?.scrollIntoView({
             block: 'end',
-            behavior: 'auto'
+            behavior: 'auto',
         });
     };
 
@@ -98,13 +88,30 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
                     onKeyDown={e => handleKeyDown(e)}
                     autoComplete="off"
                 />
+
                 {countrySearch.length > 0 && (
                     <ul className={styles['country-input-autocomplete']}>
-                        {filteredCountries}
-                        {filteredCountries?.length === 0 && (
+                        {filteredCountries.map((country, index) => {
+                            const optionClass =
+                                index === activeIndex
+                                    ? 'country-input-autocomplete-option--active'
+                                    : 'country-input-autocomplete-option';
+
+                            return (
+                                <li
+                                    className={styles[optionClass]}
+                                    key={index}
+                                    ref={el => {
+                                        optionRefs.current[index - 1] = el;
+                                    }}
+                                >
+                                    {country?.flag} {country?.name}
+                                </li>
+                            );
+                        })}
+                        {filteredCountries.length === 0 && (
                             <li
                                 className={styles['country-input-autocomplete-option']}
-                                key="no suggestions"
                             >
                                 No countries available.
                             </li>
