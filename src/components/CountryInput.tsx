@@ -1,6 +1,7 @@
 import { useRef, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react';
 import styles from '../scss/components/_countryinput.module.scss';
 import type { BorldeCountryType } from '../types/bordleTypes';
+import AutocompleteOption from './AutocompleteOption';
 
 type CountryInputType = {
     countryList: BorldeCountryType[];
@@ -37,15 +38,20 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
         setActiveIndex(-1);
     };
 
-    const makeGuess = (e: FormEvent) => {
+    const makeGuess = (
+        e: FormEvent | React.MouseEvent<HTMLLIElement>,
+        selectedCountry?: BorldeCountryType
+    ) => {
         e.preventDefault();
-        const currentRef = optionRefs.current[activeIndex - 1];
 
-        if (!currentRef || !currentRef.textContent) return;
+        const countryToGuess = selectedCountry ?? filteredCountries[activeIndex];
 
-        const currentCountry = filteredCountries[activeIndex];
+        if (!countryToGuess) {
+            console.warn('No country selected. Please try again.');
+            return;
+        }
 
-        submitGuess(prev => [...prev, currentCountry]);
+        submitGuess(prev => [...prev, countryToGuess]);
         resetGuess();
     };
 
@@ -94,29 +100,23 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
 
                 {countrySearch.length > 0 && (
                     <ul className={styles['country-input-autocomplete']}>
-                        {filteredCountries.map((country, index) => {
-                            const optionClass =
-                                index === activeIndex
-                                    ? 'country-input-autocomplete-option--active'
-                                    : 'country-input-autocomplete-option';
-
+                        {filteredCountries.map((country, i) => {
                             return (
-                                <li
-                                    className={styles[optionClass]}
-                                    key={index}
-                                    ref={el => {
-                                        optionRefs.current[index - 1] = el;
-                                    }}
-                                >
-                                    {country?.flag} {country?.name}
-                                </li>
+                                <AutocompleteOption
+                                    country={country}
+                                    key={i}
+                                    index={i}
+                                    cssClass={
+                                        i === activeIndex
+                                            ? 'country-input-autocomplete-option--active'
+                                            : 'country-input-autocomplete-option'
+                                    }
+                                    currentRef={optionRefs}
+                                    onClick={(e) => makeGuess(e, country)}
+                                />
                             );
                         })}
-                        {filteredCountries.length === 0 && (
-                            <li className={styles['country-input-autocomplete-option']}>
-                                No countries available.
-                            </li>
-                        )}
+                        {filteredCountries.length === 0 && <AutocompleteOption noOptions={true} />}
                     </ul>
                 )}
             </div>

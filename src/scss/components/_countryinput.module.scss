@@ -6,7 +6,7 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
 
 .country-input {
     padding: $input-padding;
-    border-radius: var.$border-radius;
+    border-radius: var.$border-radius 0 0 var.$border-radius;
     border: none;
     font-size: func.pxToRem(18);
     font-family: var.$font-family;
@@ -25,7 +25,6 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
         margin: func.pxToRem(32) 0 func.pxToRem(8);
         display: flex;
         justify-content: center;
-        gap: func.pxToRem(12);
     }
 
     &-autocomplete {
@@ -66,5 +65,6 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
 
     &-button {
         @extend .button;
+        border-radius: 0 var.$border-radius var.$border-radius 0;
     }
 }

@@ -15,44 +15,45 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
             <Container>
                 <Row>
                     <Col>
-                        {game.fullCountryList && <div></div>}
-                        <div className={styles['gameboard']}>
-                            <div>
-                                {game.randomCountry && (
-                                    <CountryCard
-                                        name={game.randomCountry.name}
-                                        flag={game.randomCountry.flag}
-                                        isMainCountry={true}
-                                    />
-                                )}
-
-                                {game.fullCountryList && (
-                                    <div className={styles['gameboard-wrap']}>
-                                        <CountryInput
-                                            countryList={game.fullCountryList}
-                                            submitGuess={setGuessedCountries}
+                        {game.fullCountryList && (
+                            <div className={styles['gameboard']}>
+                                <div>
+                                    {game.randomCountry && (
+                                        <CountryCard
+                                            name={game.randomCountry.name}
+                                            flag={game.randomCountry.flag}
+                                            isMainCountry={true}
                                         />
+                                    )}
 
-                                        {guessedCountries && guessedCountries.length > 0 && (
-                                            <GuessedCountries list={guessedCountries} />
-                                        )}
+                                    {game.fullCountryList && (
+                                        <div className={styles['gameboard-wrap']}>
+                                            <CountryInput
+                                                countryList={game.fullCountryList}
+                                                submitGuess={setGuessedCountries}
+                                            />
+
+                                            {guessedCountries && guessedCountries.length > 0 && (
+                                                <GuessedCountries list={guessedCountries} />
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                                {game.borderingCountries && (
+                                    <div className={styles['gameboard-list']}>
+                                        {game.borderingCountries.map((country, i) => {
+                                            return (
+                                                <CountryCard
+                                                    key={i}
+                                                    name={country.name}
+                                                    flag={country.flag}
+                                                />
+                                            );
+                                        })}
                                     </div>
                                 )}
                             </div>
-                            {game.borderingCountries && (
-                                <div className={styles['gameboard-list']}>
-                                    {game.borderingCountries.map((country, i) => {
-                                        return (
-                                            <CountryCard
-                                                key={i}
-                                                name={country.name}
-                                                flag={country.flag}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            )}
-                        </div>
+                        )}
                     </Col>
                 </Row>
             </Container>
