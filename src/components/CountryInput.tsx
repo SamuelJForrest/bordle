@@ -7,9 +7,19 @@ type CountryInputType = {
     countryList: BorldeCountryType[];
     setGuessedCountries: Dispatch<SetStateAction<BorldeCountryType[]>>;
     setGuessIndex: Dispatch<SetStateAction<number>>;
+    countryToGuess: BorldeCountryType;
+    gameInProgress: boolean;
+    setGameInProgress: Dispatch<SetStateAction<boolean>>;
 };
 
-const CountryInput: React.FC<CountryInputType> = ({ countryList, setGuessedCountries, setGuessIndex }) => {
+const CountryInput: React.FC<CountryInputType> = ({
+    countryList,
+    setGuessedCountries,
+    setGuessIndex,
+    countryToGuess,
+    gameInProgress,
+    setGameInProgress,
+}) => {
     const [countrySearch, setCountrySearch] = useState<string>('');
     const [activeIndex, setActiveIndex] = useState<number>(-1);
     const optionRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -39,11 +49,26 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, setGuessedCount
         setActiveIndex(-1);
     };
 
+    const checkIfGuessIsCorrect: (country: BorldeCountryType) => void = country => {
+        if (country.name === countryToGuess.name) {
+            console.log('You Win!');
+            setGameInProgress(false);
+        } else {
+            console.log('Keep trying!');
+            setGuessIndex(prev => prev + 1);
+        }
+    };
+
     const makeGuess = (
         e: FormEvent | React.MouseEvent<HTMLLIElement>,
         selectedCountry?: BorldeCountryType
     ) => {
         e.preventDefault();
+
+        if (!gameInProgress) {
+            console.warn('Game is over!');
+            return;
+        }
 
         const countryToGuess = selectedCountry ?? filteredCountries[activeIndex];
 
@@ -52,8 +77,9 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, setGuessedCount
             return;
         }
 
+        checkIfGuessIsCorrect(countryToGuess);
+
         setGuessedCountries(prev => [...prev, countryToGuess]);
-        setGuessIndex(prev => prev + 1);
         resetGuess();
     };
 
@@ -102,23 +128,35 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, setGuessedCount
 
                 {countrySearch.length > 0 && (
                     <ul className={styles['country-input-autocomplete']}>
-                        {filteredCountries.map((country, i) => {
-                            return (
-                                <AutocompleteOption
-                                    country={country}
-                                    key={i}
-                                    index={i}
-                                    cssClass={
-                                        i === activeIndex
-                                            ? 'country-input-autocomplete-option--active'
-                                            : 'country-input-autocomplete-option'
-                                    }
-                                    currentRef={optionRefs}
-                                    onClick={(e) => makeGuess(e, country)}
-                                />
-                            );
-                        })}
-                        {filteredCountries.length === 0 && <AutocompleteOption noOptions={true} />}
+                        {gameInProgress &&
+                            filteredCountries.map((country, i) => {
+                                return (
+                                    <AutocompleteOption
+                                        key={i}
+                                        index={i}
+                                        cssClass={
+                                            i === activeIndex
+                                                ? 'country-input-autocomplete-option--active'
+                                                : 'country-input-autocomplete-option'
+                                        }
+                                        currentRef={optionRefs}
+                                        onClick={e => makeGuess(e, country)}
+                                    >
+                                        {country.flag} {country.name}
+                                    </AutocompleteOption>
+                                );
+                            })}
+                        {filteredCountries.length === 0 && (
+                            <AutocompleteOption cssClass="country-input-autocomplete-option">
+                                No countries available.
+                            </AutocompleteOption>
+                        )}
+
+                        {!gameInProgress && (
+                            <AutocompleteOption cssClass="country-input-autocomplete-option">
+                                Game is over!
+                            </AutocompleteOption>
+                        )}
                     </ul>
                 )}
             </div>

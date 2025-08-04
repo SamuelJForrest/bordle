@@ -10,8 +10,10 @@ import GuessedCountries from './GuessedCountries';
 const GameBoard: React.FC<BordleGameType> = ({ game }) => {
     const [guessedCountries, setGuessedCountries] = useState<BorldeCountryType[]>([]);
     const [guessIndex, setGuessIndex] = useState<number>(0);
+    const [gameInProgress, setGameInProgess] = useState<boolean>(true);
+    const randomCountry = game.randomCountry;
 
-    console.log(guessIndex);
+    console.log(randomCountry);
 
     return (
         <main>
@@ -26,7 +28,7 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
                                             name={game.randomCountry.name}
                                             flag={game.randomCountry.flag}
                                             isMainCountry={true}
-                                            isVisible={false}
+                                            isVisible={!gameInProgress}
                                         />
                                     )}
 
@@ -36,6 +38,9 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
                                                 countryList={game.fullCountryList}
                                                 setGuessedCountries={setGuessedCountries}
                                                 setGuessIndex={setGuessIndex}
+                                                countryToGuess={randomCountry}
+                                                gameInProgress={gameInProgress}
+                                                setGameInProgress={setGameInProgess}
                                             />
 
                                             {guessedCountries && guessedCountries.length > 0 && (
