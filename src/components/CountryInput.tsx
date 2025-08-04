@@ -5,10 +5,11 @@ import AutocompleteOption from './AutocompleteOption';
 
 type CountryInputType = {
     countryList: BorldeCountryType[];
-    submitGuess: Dispatch<SetStateAction<BorldeCountryType[]>>;
+    setGuessedCountries: Dispatch<SetStateAction<BorldeCountryType[]>>;
+    setGuessIndex: Dispatch<SetStateAction<number>>;
 };
 
-const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) => {
+const CountryInput: React.FC<CountryInputType> = ({ countryList, setGuessedCountries, setGuessIndex }) => {
     const [countrySearch, setCountrySearch] = useState<string>('');
     const [activeIndex, setActiveIndex] = useState<number>(-1);
     const optionRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -51,7 +52,8 @@ const CountryInput: React.FC<CountryInputType> = ({ countryList, submitGuess }) 
             return;
         }
 
-        submitGuess(prev => [...prev, countryToGuess]);
+        setGuessedCountries(prev => [...prev, countryToGuess]);
+        setGuessIndex(prev => prev + 1);
         resetGuess();
     };
 

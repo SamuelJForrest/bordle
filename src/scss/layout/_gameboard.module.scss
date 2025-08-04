@@ -1,14 +1,12 @@
 @use '../utils/variables' as var;
 @use '../utils/functions' as func;
 
-$gameboard-gap: func.pxToRem(16);
-
 .gameboard {
 
     @media (min-width: var.$lg) {
         display: grid;
         grid-template-columns: repeat(2, 6fr);
-        gap: $gameboard-gap;
+        gap: func.pxToRem(32);
         align-items: flex-start;
     }
 
@@ -16,7 +14,7 @@ $gameboard-gap: func.pxToRem(16);
         @media (min-width: var.$lg) {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: $gameboard-gap * 2 $gameboard-gap;
+            gap: func.pxToRem(20);
         }
     }
 

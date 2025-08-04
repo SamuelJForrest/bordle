@@ -18,7 +18,7 @@ $input-padding: func.pxToRem(8) func.pxToRem(12);
 
     &--active {
         @extend .country-input;
-        border-radius: var.$border-radius var.$border-radius 0 0;
+        border-radius: var.$border-radius 0 0 0;
     }
 
     &-container {

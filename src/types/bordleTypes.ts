@@ -22,7 +22,7 @@ type CountryComponentType = {
     name: string;
     flag: string;
     isMainCountry?: boolean;
-    isHidden?: boolean;
+    isVisible?: boolean;
 };
 
 export type { BordleCountryPickerType, BorldeCountryType, CountryComponentType, BordleGameType };
