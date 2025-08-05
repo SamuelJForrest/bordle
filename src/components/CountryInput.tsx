@@ -128,9 +128,9 @@ const CountryInput: React.FC<CountryInputType> = ({
 
                 {countrySearch.length > 0 && (
                     <ul className={styles['country-input-autocomplete']}>
-                        {gameInProgress &&
-                            filteredCountries.map((country, i) => {
-                                return (
+                        {gameInProgress && (
+                            <>
+                                {filteredCountries.map((country, i) => (
                                     <AutocompleteOption
                                         key={i}
                                         index={i}
@@ -144,12 +144,14 @@ const CountryInput: React.FC<CountryInputType> = ({
                                     >
                                         {country.flag} {country.name}
                                     </AutocompleteOption>
-                                );
-                            })}
-                        {filteredCountries.length === 0 && (
-                            <AutocompleteOption cssClass="country-input-autocomplete-option">
-                                No countries available.
-                            </AutocompleteOption>
+                                ))}
+
+                                {filteredCountries.length === 0 && (
+                                    <AutocompleteOption cssClass="country-input-autocomplete-option">
+                                        No countries available.
+                                    </AutocompleteOption>
+                                )}
+                            </>
                         )}
 
                         {!gameInProgress && (

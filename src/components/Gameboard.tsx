@@ -13,8 +13,6 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
     const [gameInProgress, setGameInProgess] = useState<boolean>(true);
     const randomCountry = game.randomCountry;
 
-    console.log(randomCountry);
-
     return (
         <main>
             <Container>
