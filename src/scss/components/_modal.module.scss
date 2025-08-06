@@ -1,0 +1,38 @@
+@use '../utils/variables' as var;
+@use '../components/button';
+
+.modal {
+    &-overlay {
+        position: fixed;
+        inset: 0;
+        background: var.$opaque-black;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-content {
+        background-color: var.$white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        width: 90%;
+        max-width: 500px;
+        outline: none;
+        position: relative;
+    }
+
+    &-title {
+        margin-top: 0;
+        color: var.$black;
+        font-weight: var.$font-bold;
+    }
+
+    &-body {
+        margin: 1rem 0;
+    }
+
+    &-close {
+        @extend .button;
+    }
+}
