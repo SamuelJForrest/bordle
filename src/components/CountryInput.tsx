@@ -10,6 +10,7 @@ type CountryInputType = {
     countryToGuess: BorldeCountryType;
     gameInProgress: boolean;
     setGameInProgress: Dispatch<SetStateAction<boolean>>;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const CountryInput: React.FC<CountryInputType> = ({
@@ -19,6 +20,7 @@ const CountryInput: React.FC<CountryInputType> = ({
     countryToGuess,
     gameInProgress,
     setGameInProgress,
+    setIsModalOpen
 }) => {
     const [countrySearch, setCountrySearch] = useState<string>('');
     const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -53,6 +55,10 @@ const CountryInput: React.FC<CountryInputType> = ({
         if (country.name === countryToGuess.name) {
             console.log('You Win!');
             setGameInProgress(false);
+
+            setTimeout(() => {
+                setIsModalOpen(true);
+            }, 750);
         } else {
             console.log('Keep trying!');
             setGuessIndex(prev => prev + 1);

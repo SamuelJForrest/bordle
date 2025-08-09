@@ -15,6 +15,8 @@ $font-semibold: 600;
 $font-bold: 700;
 
 $title-large: func.pxToRem(64);
+$title-medium: func.pxToRem(48);
+$title-small: func.pxToRem(24);
 
 // responsivity variables
 $sm: 575px;

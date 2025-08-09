@@ -26,10 +26,12 @@
         margin-top: 0;
         color: var.$black;
         font-weight: var.$font-bold;
+        font-size: var.$title-small;
     }
 
     &-body {
         margin: 1rem 0;
+        color: var.$black;
     }
 
     &-close {

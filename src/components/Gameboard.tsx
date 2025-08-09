@@ -12,8 +12,9 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
     const [guessedCountries, setGuessedCountries] = useState<BorldeCountryType[]>([]);
     const [guessIndex, setGuessIndex] = useState<number>(0);
     const [gameInProgress, setGameInProgess] = useState<boolean>(true);
+    const [playerWins, setPlayerWins] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const randomCountry = game.randomCountry;
-    const [isModalOpen, setIsModalOpen] = useState(true);
 
     return (
         <main>
@@ -41,6 +42,7 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
                                                 countryToGuess={randomCountry}
                                                 gameInProgress={gameInProgress}
                                                 setGameInProgress={setGameInProgess}
+                                                setIsModalOpen={setIsModalOpen}
                                             />
 
                                             {guessedCountries && guessedCountries.length > 0 && (
@@ -69,7 +71,7 @@ const GameBoard: React.FC<BordleGameType> = ({ game }) => {
                 </Row>
             </Container>
             <Modal title="You Win!" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <p>Winner</p>
+                <p>Congratulations! The answer was {randomCountry.name}.</p>
             </Modal>
         </main>
     );
